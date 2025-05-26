@@ -1,0 +1,25 @@
+<!-- public/metrics.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Raffle Metrics</title>
+</head>
+<body>
+  <h2>Raffle Metrics</h2>
+  <p id="stats">Loading...</p>
+
+  <script>
+    async function loadMetrics() {
+      const res = await fetch('/api/raffle-metrics?site=parislore.com');
+      const data = await res.json();
+
+      const revenue = (data.revenueCents / 100).toFixed(2);
+      document.getElementById('stats').innerText =
+        `Tickets Sold: ${data.ticketsSold}\nRevenue: €${revenue}`;
+    }
+
+    loadMetrics();
+  </script>
+</body>
+</html>

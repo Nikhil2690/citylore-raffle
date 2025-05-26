@@ -1,0 +1,32 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ticket Status</title>
+</head>
+<body>
+  <h2>Check Your Ticket Status</h2>
+  <input id="email" type="email" placeholder="Enter email" />
+  <input id="site" type="text" placeholder="Enter site (e.g. parislore.com)" />
+  <button onclick="checkStatus()">Check Status</button>
+  <p id="result"></p>
+
+  <script>
+    async function checkStatus() {
+      const email = document.getElementById('email').value;
+      const site = document.getElementById('site').value;
+
+      const res = await fetch(`/api/ticket-status?email=${email}&site=${site}`);
+      const data = await res.json();
+
+      const result = document.getElementById('result');
+      if (data.purchased) {
+        result.innerText = `🎟️ Ticket Confirmed! You have earned +${data.boostVotes} boost votes`;
+      } else {
+        result.innerText = `No ticket found.`;
+      }
+    }
+  </script>
+</body>
+</html>
